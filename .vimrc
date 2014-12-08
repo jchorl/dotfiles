@@ -3,10 +3,10 @@ set modeline
 set ls=2
 " Line indicating where the cursor is
 set cursorline
-" Make sure 5 lines are always padding top or bottom
+:au WinEnter * :setlocal cursorline
+:au WinLeave * :setlocal nocursorline
+" Make sure 10 lines are always padding top or bottom
 set scrolloff=10
-" Line wraps
-set showbreak=↪
 " Syntax
 syntax on
 " Indent
@@ -16,8 +16,8 @@ set number
 :au WinEnter * :setlocal number
 :au WinLeave * :setlocal nonumber
 
-" Needed for snipMate
-:filetype plugin on
+" colorscheme
+colorscheme ron
 
 " Disable errorbell
 :set noeb vb t_vb=
