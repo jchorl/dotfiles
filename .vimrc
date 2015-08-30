@@ -18,6 +18,12 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-bufferline'
 Plugin 'bling/vim-airline'
+Plugin 'raimondi/delimitmate'
+
+" Language specific plugins
+Plugin 'groenewege/vim-less'
+Plugin 'pangloss/vim-javascript'
+Plugin 'fatih/vim-go'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -126,8 +132,12 @@ inoremap jj <Esc>
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" A buffer becomes hidden when it is abandoned
+set hid
+
 " Set leader to space bar
 let mapleader = "\<Space>"
+
 " leader o/b for ctrlp
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
@@ -150,20 +160,22 @@ nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
 " cycle buffers with leader n/p
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>p :bp<CR>
+" edit with leader e
+nnoremap <leader>e :e 
 
 " Go to end of pasted text
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
-" A buffer becomes hidden when it is abandoned
-set hid
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Paste while in insert mode with ctrl-v
+inoremap <C-v> <C-R>*
 "}}}
 
 "{{{Window enter or exit
@@ -182,6 +194,7 @@ au FileType cpp setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType html setlocal softtabstop=4 shiftwidth=4 expandtab
 au FileType python setlocal softtabstop=4 shiftwidth=4 expandtab
 au FileType css setlocal softtabstop=2 shiftwidth=2 expandtab
+au FileType less setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType json setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType tex setlocal softtabstop=2 shiftwidth=2 expandtab
 
@@ -191,7 +204,6 @@ au FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 " misc:
 autocmd BufNewFile,BufRead *.json setfiletype json
-autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.es6 setfiletype javascript
 
 " Treat <li> and <p> tags like the block tags they are
@@ -214,6 +226,8 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/python/ycm/.ycm_extra_conf.py'
+" turn off the autocomplete preview window
+set completeopt=longest,menuone
 
 " bufferline
 " dont show on the command line
@@ -224,4 +238,18 @@ let g:bufferline_show_bufnr = 0
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = '%y'
 let g:airline_section_x = airline#section#create_right(['%{getcwd()}'])
+
+" delimitmate
+" turn space expansion off in delimitmate
+let delimitMate_expand_space = 0
+" turn on smart quotes in delimitmate
+let delimitMate_smart_quotes = 1
+" turn on delimitmate carriage return expansion
+let delimitMate_expand_cr = 1
+" turns on delimitmate jumping over expansion
+let delimitMate_jump_expansion = 1
+" turn off delimitmate for certain filetypes
+au filetype html let b:loaded_delimitMate = 1
+" map to jump out of brackets
+imap <C-b> <S-Tab>
 "}}}
