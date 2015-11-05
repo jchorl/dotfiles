@@ -24,6 +24,8 @@ Plugin 'raimondi/delimitmate'
 Plugin 'groenewege/vim-less'
 Plugin 'pangloss/vim-javascript'
 Plugin 'fatih/vim-go'
+Plugin 'nvie/vim-flake8'
+Plugin 'hynek/vim-python-pep8-indent'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -38,11 +40,6 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 "}}}
 
 "{{{General
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
-
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 
@@ -84,14 +81,14 @@ set grepprg=grep\ -nH\ $*
 set autoindent
 
 " Underline current line
-set cursorline
-hi clear CursorLine
+" set cursorline
+" hi clear CursorLine
 hi clear LineNr
 hi clear Folded
 hi clear SpecialKey
-hi CursorLine cterm=underline
+" hi CursorLine cterm=underline
 hi Folded ctermbg=235
-hi CursorLineNr ctermfg=33
+" hi CursorLineNr ctermfg=33
 hi bufferline_selected ctermfg=235 ctermbg=254
 
 " Show “invisible” characters
@@ -99,8 +96,11 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
-" Ignore case of searches
+" Clearing highlighted searches
+nmap <silent> // :nohlsearch<CR>
+" Smart case for searches
 set ignorecase
+set smartcase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Always show status line
@@ -142,6 +142,7 @@ let mapleader = "\<Space>"
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>a :bufdo bd<CR>
 " leader leader to write
 nnoremap <Leader><Leader> :w<CR>
 " leader q to wq
@@ -176,12 +177,15 @@ map <C-l> <C-W>l
 
 " Paste while in insert mode with ctrl-v
 inoremap <C-v> <C-R>*
+
+" Move to end of line with C-e
+inoremap <C-e> <Esc>A
 "}}}
 
 "{{{Window enter or exit
 " Line indicating where the cursor is
-:au WinEnter * :setlocal cursorline
-:au WinLeave * :setlocal nocursorline
+" :au WinEnter * :setlocal cursorline
+" :au WinLeave * :setlocal nocursorline
 " Always show line numbers, but only in current window.
 :au WinEnter * :setlocal number
 :au WinLeave * :setlocal nonumber
@@ -197,6 +201,7 @@ au FileType css setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType less setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType json setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType tex setlocal softtabstop=2 shiftwidth=2 expandtab
+au FileType yaml setlocal softtabstop=2 shiftwidth=2 expandtab
 
 " tabs:
 au FileType java setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
@@ -217,6 +222,12 @@ autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 
 " Fix line endings for windows
 set ffs=unix,dos
+
+" git commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" right margin for python
+au FileType python setlocal colorcolumn=120
 "}}}
 
 "{{{Plugins
@@ -225,7 +236,6 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/python/ycm/.ycm_extra_conf.py'
 " turn off the autocomplete preview window
 set completeopt=longest,menuone
 
@@ -237,7 +247,7 @@ let g:bufferline_show_bufnr = 0
 
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = '%y'
-let g:airline_section_x = airline#section#create_right(['%{getcwd()}'])
+" let g:airline_section_x = airline#section#create_right(['%{fnamemodify(getcwd(), ":p:h")}'])
 
 " delimitmate
 " turn space expansion off in delimitmate
@@ -250,6 +260,6 @@ let delimitMate_expand_cr = 1
 let delimitMate_jump_expansion = 1
 " turn off delimitmate for certain filetypes
 au filetype html let b:loaded_delimitMate = 1
-" map to jump out of brackets
-imap <C-b> <S-Tab>
+" flake before write
+autocmd BufWritePost *.py call Flake8()
 "}}}
