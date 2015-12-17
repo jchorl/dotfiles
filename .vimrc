@@ -81,8 +81,8 @@ set grepprg=grep\ -nH\ $*
 set autoindent
 
 " Underline current line
-" set cursorline
-" hi clear CursorLine
+set cursorline
+hi clear CursorLine
 hi clear LineNr
 hi clear Folded
 hi clear SpecialKey
@@ -227,7 +227,7 @@ set ffs=unix,dos
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " right margin for python
-au FileType python setlocal colorcolumn=120
+au FileType python setlocal colorcolumn=100
 "}}}
 
 "{{{Plugins

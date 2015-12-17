@@ -2,6 +2,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
+export EDITOR=vim
+
 deletebranch () {
     git branch -D "$@" && git push --delete origin "$@"
 }
@@ -24,7 +26,7 @@ alias greb='git pull --rebase origin master'
 alias gst='git status'
 alias gri='git rebase -i'
 alias grhead='git reset --hard HEAD'
-alias gprogress='git log --author="Josh Chorlton" --after="1 week ago" --oneline'
+alias gb='git branch'
 alias db='deletebranch'
 
 alias ts='tmux new -s '
