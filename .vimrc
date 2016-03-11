@@ -40,6 +40,9 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 "}}}
 
 "{{{General
+"Colours
+set t_Co=256
+
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 
@@ -199,7 +202,7 @@ set clipboard+=unnamedplus
 " http://tedlogan.com/techblog3.html
 " spaces:
 au FileType cpp,css,less,json,tex,yaml,html setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType python setlocal softtabstop=4 shiftwidth=4 expandtab
+au FileType python,dockerfile setlocal softtabstop=4 shiftwidth=4 expandtab
 
 " tabs:
 au FileType java,javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
@@ -243,8 +246,6 @@ let g:bufferline_echo = 0
 let g:bufferline_show_bufnr = 0
 
 let g:airline_powerline_fonts = 1
-let g:airline_section_b = '%y'
-let g:airline_section_x = airline#section#create_right(['%{getcwd()}'])
 
 " delimitmate
 " turn space expansion off in delimitmate
