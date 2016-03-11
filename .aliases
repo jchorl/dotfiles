@@ -1,0 +1,22 @@
+mkcd()
+{
+        mkdir -p "$1" && cd "$1"
+}
+
+alias cp='cp -a'
+alias ls='ls -AG'
+alias g++='g++ -std=c++11'
+alias python='python3'
+alias rsync='rsync -aPz'
+alias start-ssh='systemctl start sshd.service'
+alias stop-ssh='systemctl stop sshd.service'
+alias clean='pacman -Rns $(pacman -Qtdq)'
+alias play='mplayer -vo vaapi -va vaapi -fs -vfm ffmpeg -lavdopts fast:skiploopfilter=all'
+alias multi-monitor='xrandr --output HDMI3 --auto --output LVDS1 --auto --left-of HDMI3'
+alias single-monitor='xrandr --output HDMI3 --off'
+alias show-ip='ip addr show dev wlp3s0'
+
+alias tmux='tmux -2'
+alias ts='tmux new -s '
+alias ta='tmux a -t '
+alias tls='tmux ls'

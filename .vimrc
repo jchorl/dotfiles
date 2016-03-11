@@ -86,19 +86,18 @@ hi clear CursorLine
 hi clear LineNr
 hi clear Folded
 hi clear SpecialKey
-" hi CursorLine cterm=underline
+hi CursorLine cterm=underline
 hi Folded ctermbg=235
-" hi CursorLineNr ctermfg=33
+hi CursorLineNr ctermfg=33
 hi bufferline_selected ctermfg=235 ctermbg=254
 
 " Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set lcs=tab:→\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
 " Clearing highlighted searches
 nmap <silent> // :nohlsearch<CR>
-" Smart case for searches
 set ignorecase
 set smartcase
 " Highlight dynamically as pattern is typed
@@ -175,37 +174,35 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Paste while in insert mode with ctrl-v
-inoremap <C-v> <C-R>*
-
 " Move to end of line with C-e
 inoremap <C-e> <Esc>A
+
+" Paste while in insert mode with ctrl-v
+inoremap <C-v> <C-R>*
 "}}}
 
 "{{{Window enter or exit
 " Line indicating where the cursor is
-" :au WinEnter * :setlocal cursorline
-" :au WinLeave * :setlocal nocursorline
+:au WinEnter * :setlocal cursorline
+:au WinLeave * :setlocal nocursorline
 " Always show line numbers, but only in current window.
 :au WinEnter * :setlocal number
 :au WinLeave * :setlocal nonumber
 "}}}
 
+"{{{OS Specific
+"Linux
+set clipboard+=unnamedplus
+"}}}
+
 "{{{File specific
 " http://tedlogan.com/techblog3.html
 " spaces:
-au FileType cpp setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType html setlocal softtabstop=4 shiftwidth=4 expandtab
+au FileType cpp,css,less,json,tex,yaml,html setlocal softtabstop=2 shiftwidth=2 expandtab
 au FileType python setlocal softtabstop=4 shiftwidth=4 expandtab
-au FileType css setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType less setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType json setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType tex setlocal softtabstop=2 shiftwidth=2 expandtab
-au FileType yaml setlocal softtabstop=2 shiftwidth=2 expandtab
 
 " tabs:
-au FileType java setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-au FileType javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+au FileType java,javascript setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
 
 " misc:
 autocmd BufNewFile,BufRead *.json setfiletype json
@@ -224,10 +221,10 @@ autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 set ffs=unix,dos
 
 " git commit messages
-autocmd Filetype gitcommit setlocal spell textwidth=72
+au FileType gitcommit setlocal spell textwidth=72
 
 " right margin for python
-au FileType python setlocal colorcolumn=100
+au FileType python setlocal colorcolumn=80
 "}}}
 
 "{{{Plugins
@@ -247,7 +244,7 @@ let g:bufferline_show_bufnr = 0
 
 let g:airline_powerline_fonts = 1
 let g:airline_section_b = '%y'
-" let g:airline_section_x = airline#section#create_right(['%{fnamemodify(getcwd(), ":p:h")}'])
+let g:airline_section_x = airline#section#create_right(['%{getcwd()}'])
 
 " delimitmate
 " turn space expansion off in delimitmate
@@ -259,7 +256,8 @@ let delimitMate_expand_cr = 1
 " turns on delimitmate jumping over expansion
 let delimitMate_jump_expansion = 1
 " turn off delimitmate for certain filetypes
-au filetype html let b:loaded_delimitMate = 1
+au FileType html let b:loaded_delimitMate = 1
+
 " flake before write
-autocmd BufWritePost *.py call Flake8()
+au BufWritePost *.py call Flake8()
 "}}}
