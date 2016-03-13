@@ -238,6 +238,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 " YouCompleteMe
 " turn off the autocomplete preview window
 set completeopt=longest,menuone
+let g:ycm_path_to_python_interpreter="/usr/bin/python"
 
 " bufferline
 " dont show on the command line
