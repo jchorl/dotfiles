@@ -19,6 +19,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-bufferline'
 Plugin 'bling/vim-airline'
 Plugin 'raimondi/delimitmate'
+Plugin 'morhetz/gruvbox'
 
 " Language specific plugins
 Plugin 'groenewege/vim-less'
@@ -40,8 +41,8 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 "}}}
 
 "{{{General
-"Colours
-set t_Co=256
+colorscheme gruvbox
+set background=dark
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
@@ -232,8 +233,7 @@ au FileType python setlocal colorcolumn=80
 
 "{{{Plugins
 " ctrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
 
 " YouCompleteMe
 " turn off the autocomplete preview window
