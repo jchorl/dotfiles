@@ -233,12 +233,12 @@ au FileType python setlocal colorcolumn=80
 
 "{{{Plugins
 " ctrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|\.git'
 
 " YouCompleteMe
 " turn off the autocomplete preview window
 set completeopt=longest,menuone
-let g:ycm_path_to_python_interpreter="/usr/bin/python"
 
 " bufferline
 " dont show on the command line
@@ -259,7 +259,4 @@ let delimitMate_expand_cr = 1
 let delimitMate_jump_expansion = 1
 " turn off delimitmate for certain filetypes
 au FileType html let b:loaded_delimitMate = 1
-
-" flake before write
-au BufWritePost *.py call Flake8()
 "}}}
