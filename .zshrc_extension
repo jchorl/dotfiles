@@ -1,6 +1,0 @@
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-if [ -f ~/.aliases ]; then
-        source ~/.aliases
-fi
