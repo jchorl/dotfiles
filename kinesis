@@ -5,5 +5,5 @@ xkb_symbols "basic" {
    include "ctrl(nocaps)"
 
    key <DELE> { [Super_L, Super_L] };
-   key <BKSP> { [BackSpace, Delete] };
+   key <BKSP> { [BackSpace] };
 };
